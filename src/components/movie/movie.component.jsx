@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import CustomButton from "../custom-button/custom-buttom.component";
 
 import "./movie.styles.scss";
 
 const Movie = (props) => {
-  const { movie, onChange } = props;
+  const { movie, onChange, nominated } = props;
 
-  const onClickChange = () => {
+  const [nominatedState, setNominatedState] = useState(nominated);
+
+  const onClickChange = (event) => {
+    event.preventDefault();
+
     const newNomination = {
       title: movie.Title,
       imdbID: movie.imdbID,
@@ -18,11 +22,19 @@ const Movie = (props) => {
     onChange(newNomination);
   };
 
+  useEffect(() => {
+    setNominatedState(nominated);
+  }, [nominated]);
+
   return (
     <div className="movie-container">
       <h2> {movie.Title} </h2>
       <h3> {movie.Year} </h3>
-      <CustomButton nominated={props.nominated} onChange={onClickChange} />
+      <CustomButton
+        disable={nominatedState}
+        nominated={nominatedState}
+        onChange={(event) => onClickChange(event)}
+      />
     </div>
   );
 };

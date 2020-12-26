@@ -8,6 +8,7 @@ import "./homepage.component.jsx";
 function Homepage() {
   const [movieList, setMovieList] = useState();
   const [searchField, setSearchField] = useState();
+  const [count, setCount] = useState(5);
 
   const defaultList = [
     {
@@ -19,6 +20,7 @@ function Homepage() {
   ];
 
   const [nominationList, setNominationList] = useState(defaultList);
+
   useEffect(() => {
     function fetchData() {
       fetch(
@@ -27,7 +29,6 @@ function Homepage() {
         .then((response) => response.json())
         .then((json) => {
           if (json.Response === "True") {
-            console.log(json);
             return json;
           }
         })
@@ -41,23 +42,34 @@ function Homepage() {
     if (newText.length) setSearchField(event.target.value);
   };
 
+  const onNominationList = (newNominationList) => {
+    if (newNominationList.length <= 6) {
+      setCount(6 - newNominationList.length);
+      setNominationList(newNominationList);
+    }
+  };
+
   return (
     <div className="Homepage">
       <SearchBar onSearchChange={onSearchChange} />
+      <h1>{count}</h1>
       {searchField !== undefined &&
         movieList !== undefined &&
         movieList.movies !== undefined && (
           <MovieList
+            key={0}
             movieList={movieList.movies.Search}
             nominationList={nominationList}
             onChange={(newNominationList) =>
-              setNominationList(newNominationList)
+              onNominationList(newNominationList)
             }
           />
         )}
+      <hr />
       <Nomination
+        key={1}
+        onChange={(newNominationList) => onNominationList(newNominationList)}
         nominationList={nominationList}
-        onChange={(newNominationList) => setNominationList(newNominationList)}
       />
     </div>
   );

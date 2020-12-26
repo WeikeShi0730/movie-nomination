@@ -9,8 +9,9 @@ const Nomination = (props) => {
 
   const onClickChange = (event, movie) => {
     event.preventDefault();
+
     const newNominationList = nominationList.filter(
-      (removeMovie) => movie.title !== removeMovie.title
+      (removeMovie) => movie.imdbID !== removeMovie.imdbID
     );
 
     onChange(newNominationList);

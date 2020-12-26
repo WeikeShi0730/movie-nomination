@@ -8,30 +8,34 @@ const MovieList = (props) => {
   const { nominationList, movieList, onChange } = props;
 
   const onClickChange = (newNomination) => {
-    const newNominationList = nominationList;
-    newNominationList.push(newNomination);
+    if (nominationList.length < 6) {
+      const newNominationList = nominationList;
+      newNominationList.push(newNomination);
+      onChange(newNominationList);
+    }
+  };
 
-    console.log(newNominationList);
-    onChange(newNominationList);
-  }
+  const checkList = (movie) => {
+    var nomination;
+    for (nomination in nominationList) {
+      if (nominationList[nomination].imdbID === movie.imdbID) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <div className="movie-list">
       {movieList.map((movie) => (
-        <Movie
-          key={movie.imdbID}
-          movie={movie}
-          onChange={(newNomincation) => onClickChange(newNomincation)}
-          nominated={
-            nominationList.find((movie) =>
-              nominationList.map(
-                (nomination) => nomination.title === movie.title
-              )
-            ).nominated === true
-              ? true
-              : false
-          }
-        />
+        <div>
+          <Movie
+            key={movie.imdbID}
+            movie={movie}
+            onChange={(newNomincation) => onClickChange(newNomincation)}
+            nominated={checkList(movie)}
+          />
+        </div>
       ))}
     </div>
   );
