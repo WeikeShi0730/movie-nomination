@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { SearchBar } from "../components/search-bar/search-bar.component";
 import MovieList from "../components/movie-list/movie-list.component";
 import Nomination from "../components/nomination/nomination.component";
-import "./homepage.component.jsx";
+
+import "./homepage.styles.scss";
 
 function Homepage() {
   const [movieList, setMovieList] = useState();
@@ -50,9 +51,9 @@ function Homepage() {
   };
 
   return (
-    <div className="Homepage">
+    <div className="homepage">
       <SearchBar onSearchChange={onSearchChange} />
-      <h1>{count}</h1>
+      <h1>{count > 0 ? count + " Movies left" : "You've picked 5 movies"}</h1>
       {searchField !== undefined &&
         movieList !== undefined &&
         movieList.movies !== undefined && (
@@ -65,7 +66,7 @@ function Homepage() {
             }
           />
         )}
-      <hr />
+
       <Nomination
         key={1}
         onChange={(newNominationList) => onNominationList(newNominationList)}

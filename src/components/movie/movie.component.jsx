@@ -28,9 +28,12 @@ const Movie = (props) => {
 
   return (
     <div className="movie-container">
-      <h2> {movie.Title} </h2>
-      <h3> {movie.Year} </h3>
+      <div className="info">
+        <h3> {movie.Title} </h3>
+        <h5> {movie.Year} </h5>
+      </div>
       <CustomButton
+        className="button"
         disable={nominatedState}
         nominated={nominatedState}
         onChange={(event) => onClickChange(event)}
