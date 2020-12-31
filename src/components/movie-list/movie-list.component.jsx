@@ -8,7 +8,7 @@ const MovieList = (props) => {
   const { nominationList, movieList, onChange } = props;
 
   const onClickChange = (newNomination) => {
-    if (nominationList.length < 6) {
+    if (nominationList.length < 5) {
       const newNominationList = nominationList;
       newNominationList.push(newNomination);
       onChange(newNominationList);

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+
+import { setNominated, setCount } from "../redux/actions/nominated.action";
 
 import { SearchBar } from "../components/search-bar/search-bar.component";
 import MovieList from "../components/movie-list/movie-list.component";
@@ -6,21 +9,9 @@ import Nomination from "../components/nomination/nomination.component";
 
 import "./homepage.styles.scss";
 
-function Homepage() {
+function Homepage({ nominatedList, count, setNominated, setCount }) {
   const [movieList, setMovieList] = useState();
   const [searchField, setSearchField] = useState();
-  const [count, setCount] = useState(5);
-
-  const defaultList = [
-    {
-      title: "",
-      imdbID: "",
-      year: "",
-      nominated: false,
-    },
-  ];
-
-  const [nominationList, setNominationList] = useState(defaultList);
 
   useEffect(() => {
     function fetchData() {
@@ -35,6 +26,7 @@ function Homepage() {
         })
         .then((movies) => setMovieList({ movies }));
     }
+
     fetchData();
   }, [searchField]);
 
@@ -44,9 +36,9 @@ function Homepage() {
   };
 
   const onNominationList = (newNominationList) => {
-    if (newNominationList.length <= 6) {
-      setCount(6 - newNominationList.length);
-      setNominationList(newNominationList);
+    if (newNominationList.length <= 5) {
+      setCount(5 - newNominationList.length);
+      setNominated(newNominationList);
     }
   };
 
@@ -60,7 +52,7 @@ function Homepage() {
           <MovieList
             key={0}
             movieList={movieList.movies.Search}
-            nominationList={nominationList}
+            nominationList={nominatedList}
             onChange={(newNominationList) =>
               onNominationList(newNominationList)
             }
@@ -70,10 +62,15 @@ function Homepage() {
       <Nomination
         key={1}
         onChange={(newNominationList) => onNominationList(newNominationList)}
-        nominationList={nominationList}
+        nominationList={nominatedList}
       />
     </div>
   );
 }
 
-export default Homepage;
+const mapStateToProps = (state) => ({
+  nominatedList: state.nominated.nominatedList,
+  count: state.nominated.count,
+});
+
+export default connect(mapStateToProps, { setNominated, setCount })(Homepage);
