@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { setNominated, setCount } from "../redux/actions/nominated.action";
+import {
+  setNominated,
+  setCount,
+  setIsLoading,
+} from "../redux/actions/nominated.action";
 
 import { SearchBar } from "../components/search-bar/search-bar.component";
 import MovieList from "../components/movie-list/movie-list.component";
@@ -9,26 +13,36 @@ import Nomination from "../components/nomination/nomination.component";
 
 import "./homepage.styles.scss";
 
-function Homepage({ nominatedList, count, setNominated, setCount }) {
+function Homepage({
+  nominatedList,
+  count,
+  isLoading,
+  setNominated,
+  setCount,
+  setIsLoading,
+}) {
   const [movieList, setMovieList] = useState();
   const [searchField, setSearchField] = useState();
 
   useEffect(() => {
-    function fetchData() {
-      fetch(
+    setIsLoading(true);
+    async function fetchData() {
+      const res = await fetch(
         `http://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          if (json.Response === "True") {
-            return json;
-          }
-        })
-        .then((movies) => setMovieList({ movies }));
+      );
+      return res;
     }
 
-    fetchData();
-  }, [searchField]);
+    fetchData()
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.Response === "True") {
+          return json;
+        }
+      })
+      .then((movies) => setMovieList({ movies }));
+    setIsLoading(false);
+  }, [searchField, setIsLoading]);
 
   const onSearchChange = (event) => {
     const newText = event.target.value;
@@ -43,27 +57,44 @@ function Homepage({ nominatedList, count, setNominated, setCount }) {
   };
 
   return (
-    <div className="homepage">
-      <SearchBar onSearchChange={onSearchChange} />
-      <h1>{count > 0 ? count + " Movies left" : "You've picked 5 movies"}</h1>
-      {searchField !== undefined &&
-        movieList !== undefined &&
-        movieList.movies !== undefined && (
-          <MovieList
-            key={0}
-            movieList={movieList.movies.Search}
-            nominationList={nominatedList}
-            onChange={(newNominationList) =>
-              onNominationList(newNominationList)
-            }
-          />
-        )}
-
-      <Nomination
-        key={1}
-        onChange={(newNominationList) => onNominationList(newNominationList)}
-        nominationList={nominatedList}
-      />
+    <div className={`${isLoading ? "isLoading" : "notLoading"}`}>
+      <div className="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div className="homepage">
+        <SearchBar onSearchChange={onSearchChange} />
+        <h1>{count > 0 ? count + " Movies left" : "You've picked 5 movies"}</h1>
+        <div>
+          <div className="column-left">
+            {searchField !== undefined &&
+              movieList !== undefined &&
+              movieList.movies !== undefined && (
+                <MovieList
+                  key={0}
+                  className="column movie-list"
+                  movieList={movieList.movies.Search}
+                  nominationList={nominatedList}
+                  onChange={(newNominationList) =>
+                    onNominationList(newNominationList)
+                  }
+                />
+              )}
+          </div>
+          <div className="column-right">
+            <Nomination
+              key={1}
+              className="nomination-list"
+              onChange={(newNominationList) =>
+                onNominationList(newNominationList)
+              }
+              nominationList={nominatedList}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -71,6 +102,11 @@ function Homepage({ nominatedList, count, setNominated, setCount }) {
 const mapStateToProps = (state) => ({
   nominatedList: state.nominated.nominatedList,
   count: state.nominated.count,
+  isLoading: state.nominated.isLoading,
 });
 
-export default connect(mapStateToProps, { setNominated, setCount })(Homepage);
+export default connect(mapStateToProps, {
+  setNominated,
+  setCount,
+  setIsLoading,
+})(Homepage);

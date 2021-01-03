@@ -18,23 +18,27 @@ const Nomination = (props) => {
   };
 
   return (
-    <div className="nomination-list">
-      {nominationList.map((movie) => {
-        if (movie.nominated) {
-          return (
-            <div>
-              <h2>{movie.title}</h2>
-              <CustomButton
-                key={movie.imdbID}
-                nominated={movie.nominated}
-                value={movie.title}
-                onChange={(event) => onClickChange(event, movie)}
-              />
-            </div>
-          );
-        }
-        return null;
-      })}
+    <div>
+      <div className="nomination-list">
+        <h2 className="title">Nomination List</h2>
+        {nominationList.map((movie) => {
+          if (movie.nominated) {
+            return (
+              <div className="nomination">
+                <h2>{movie.title}</h2>
+                <p>{movie.year}</p>
+                <CustomButton
+                  key={movie.imdbID}
+                  nominated={movie.nominated}
+                  value={movie.title}
+                  onChange={(event) => onClickChange(event, movie)}
+                />
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
     </div>
   );
 };

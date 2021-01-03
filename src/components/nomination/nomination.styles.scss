@@ -1,4 +1,16 @@
 .nomination-list {
-  float: right;
-  margin-right: 5em;
+  .title {
+    width: 100%;
+    text-align: left;
+    text-decoration: underline;
+
+    @media only screen and (max-width: 800px) {
+      margin-left: 0px;
+      color: red;
+      display: block;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+  }
 }

@@ -1,0 +1,28 @@
+.custom-button {
+  min-width: 180px;
+  width: 50px;
+  height: 30px;
+  letter-spacing: 0.5px;
+  line-height: 30px;
+  padding: 0 35px 0 35px;
+  font-size: 12px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  font-family: "formula1-display-regular";
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 800px) {
+    font-size: 10px;
+    margin: auto;
+  }
+
+  .disable {
+    opacity: 0.3;
+    filter: alpha(opacity = 60);
+  }
+}

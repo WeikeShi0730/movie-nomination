@@ -27,15 +27,14 @@ const MovieList = (props) => {
 
   return (
     <div className="movie-list">
+      <h2 className="title">Result</h2>
       {movieList.map((movie) => (
-        <div>
-          <Movie
-            key={movie.imdbID}
-            movie={movie}
-            onChange={(newNomincation) => onClickChange(newNomincation)}
-            nominated={checkList(movie)}
-          />
-        </div>
+        <Movie
+          key={movie.imdbID}
+          movie={movie}
+          onChange={(newNomincation) => onClickChange(newNomincation)}
+          nominated={checkList(movie)}
+        />
       ))}
     </div>
   );

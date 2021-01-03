@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import './search-bar.styles.scss';
+import "./search-bar.styles.scss";
 
-export const SearchBar = props => (
+export const SearchBar = (props) => (
   <input
-    className='search-bar'
-    type='search'
-    placeholder='search movies'
+    className="search-bar"
+    type="text"
+    placeholder="search movies"
     onChange={props.onSearchChange}
   />
 );

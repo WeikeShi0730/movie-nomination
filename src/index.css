@@ -10,8 +10,8 @@ body {
   font-family: "formula1-display-regular";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #203647;
-  color: azure;
+  background-color: #5b8db3;
+  color: rgb(236, 236, 236);
 }
 
 code {

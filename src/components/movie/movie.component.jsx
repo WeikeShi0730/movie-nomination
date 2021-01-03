@@ -10,8 +10,6 @@ const Movie = (props) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
   const onClickChange = (event) => {
-    event.preventDefault();
-
     const newNomination = {
       title: movie.Title,
       imdbID: movie.imdbID,
@@ -29,15 +27,15 @@ const Movie = (props) => {
   return (
     <div className="movie-container">
       <div className="info">
-        <h3> {movie.Title} </h3>
-        <h5> {movie.Year} </h5>
+        <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
+        <p> {movie.Year}</p>
+        <CustomButton
+          className="button"
+          disable={nominatedState}
+          nominated={nominatedState}
+          onChange={(event) => onClickChange(event)}
+        />
       </div>
-      <CustomButton
-        className="button"
-        disable={nominatedState}
-        nominated={nominatedState}
-        onChange={(event) => onClickChange(event)}
-      />
     </div>
   );
 };

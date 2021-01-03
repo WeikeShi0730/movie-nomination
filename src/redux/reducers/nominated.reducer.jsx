@@ -1,8 +1,9 @@
-import { SET_NOMINATED, SET_COUNT } from "../actions/types";
+import { SET_NOMINATED, SET_COUNT, SET_LOADING } from "../actions/types";
 
 const initialState = {
   nominatedList: [],
   count: 5,
+  isLoading: false,
 };
 
 export default function nominatedReducer(state = initialState, action) {
@@ -18,7 +19,11 @@ export default function nominatedReducer(state = initialState, action) {
         ...state,
         count: action.payload,
       };
-
+    case SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     default:
       return state;
   }
