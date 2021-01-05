@@ -29,8 +29,6 @@ function Homepage({
   setIsLoading,
   setSearchField,
 }) {
-  //const [movieList, setMovieList] = useState();
-
   useEffect(() => {
     setIsLoading(true);
     const fetchedData = fetchData(
@@ -42,8 +40,10 @@ function Homepage({
           return data;
         }
       })
-      .then((movies) => setMovieList({ movies }));
-    setIsLoading(false);
+      .then((movies) => {
+        setMovieList({ movies });
+        setIsLoading(false);
+      });
   }, [searchField, setIsLoading, setMovieList]);
 
   const onSearchChange = (event) => {

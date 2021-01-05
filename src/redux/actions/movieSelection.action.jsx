@@ -28,7 +28,6 @@ export const setCount = (count) => (dispatch) => {
 };
 
 export const setIsLoading = (isLoading) => (dispatch) => {
-  console.log(isLoading);
   dispatch({
     type: SET_LOADING,
     payload: isLoading,
