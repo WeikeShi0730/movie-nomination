@@ -12,7 +12,6 @@ import MovieList from "../components/movie-list/movie-list.component";
 import Nomination from "../components/nomination/nomination.component";
 
 import "./homepage.styles.scss";
-import fetch from "node-fetch";
 
 function Homepage({
   nominatedList,
@@ -25,25 +24,16 @@ function Homepage({
   const [movieList, setMovieList] = useState();
   const [searchField, setSearchField] = useState();
 
-  const fetchData = async (url) => {
-    const response = await fetch(url);
-    return response;
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    async function fetchData() {
-      const res = await fetch(
-        `http://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
-      );
-      return res;
-    }
 
-    fetchData()
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.Response === "True") {
-          return json;
+    const fetchedData = fetchData(
+      `http://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
+    );
+    fetchedData
+      .then((data) => {
+        if (data.Response === "True") {
+          return data;
         }
       })
       .then((movies) => setMovieList({ movies }));
@@ -72,7 +62,7 @@ function Homepage({
       </div>
       <div className="homepage">
         <SearchBar onSearchChange={onSearchChange} />
-        <h1>{count > 0 ? count + " Movies left" : "You've picked 5 movies"}</h1>
+        <h1>{count > 0 ? `${count} Movies left` : `You've picked 5 movies`}</h1>
         <div>
           <div className="column-left">
             {searchField !== undefined &&
@@ -104,6 +94,11 @@ function Homepage({
     </div>
   );
 }
+
+export const fetchData = async (url) => {
+  const response = await fetch(url);
+  return await response.json();
+};
 
 const mapStateToProps = (state) => ({
   nominatedList: state.nominated.nominatedList,
