@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render MoiveList component 1`] = `
+<div
+  className="movie-list"
+>
+  <h2
+    className="title"
+  >
+    Result
+  </h2>
+  <Movie
+    movie={
+      Object {
+        "Title": "Test Movie Name_0",
+        "Year": 1024,
+        "imdbID": "imdbID_0",
+      }
+    }
+    nominated={false}
+    onChange={[Function]}
+  />
+  <Movie
+    movie={
+      Object {
+        "Title": "Test Movie Name_1",
+        "Year": 1025,
+        "imdbID": "imdbID_1",
+      }
+    }
+    nominated={false}
+    onChange={[Function]}
+  />
+  <Movie
+    movie={
+      Object {
+        "Title": "Test Movie Name_2",
+        "Year": 1026,
+        "imdbID": "imdbID_2",
+      }
+    }
+    nominated={false}
+    onChange={[Function]}
+  />
+</div>
+`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render SearchBar component 1`] = `
+<input
+  className="search-bar"
+  placeholder="search movies"
+  type="text"
+/>
+`;

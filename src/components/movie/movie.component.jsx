@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import CustomButton from "../custom-button/custom-buttom.component";
+import CustomButton from "../custom-button/custom-button.component";
 
 import "./movie.styles.scss";
 
-const Movie = (props) => {
-  const { movie, onChange, nominated } = props;
-
+const Movie = ({ movie, onChange, nominated }) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
   const onClickChange = (event) => {

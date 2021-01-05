@@ -12,6 +12,7 @@ import MovieList from "../components/movie-list/movie-list.component";
 import Nomination from "../components/nomination/nomination.component";
 
 import "./homepage.styles.scss";
+import fetch from "node-fetch";
 
 function Homepage({
   nominatedList,
@@ -23,6 +24,11 @@ function Homepage({
 }) {
   const [movieList, setMovieList] = useState();
   const [searchField, setSearchField] = useState();
+
+  const fetchData = async (url) => {
+    const response = await fetch(url);
+    return response;
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -73,7 +79,7 @@ function Homepage({
               movieList !== undefined &&
               movieList.movies !== undefined && (
                 <MovieList
-                  key={0}
+                  key="0"
                   className="column movie-list"
                   movieList={movieList.movies.Search}
                   nominationList={nominatedList}
@@ -85,7 +91,7 @@ function Homepage({
           </div>
           <div className="column-right">
             <Nomination
-              key={1}
+              key="1"
               className="nomination-list"
               onChange={(newNominationList) =>
                 onNominationList(newNominationList)

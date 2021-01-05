@@ -1,6 +1,6 @@
 import React from "react";
 
-import CustomButton from "../custom-button/custom-buttom.component";
+import CustomButton from "../custom-button/custom-button.component";
 
 import "./nomination.styles.scss";
 
@@ -24,11 +24,10 @@ const Nomination = (props) => {
         {nominationList.map((movie) => {
           if (movie.nominated) {
             return (
-              <div className="nomination">
+              <div key={movie.imdbID} className="nomination">
                 <h2>{movie.title}</h2>
                 <p>{movie.year}</p>
                 <CustomButton
-                  key={movie.imdbID}
                   nominated={movie.nominated}
                   value={movie.title}
                   onChange={(event) => onClickChange(event, movie)}

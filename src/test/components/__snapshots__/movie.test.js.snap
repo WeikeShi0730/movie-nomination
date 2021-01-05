@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Moive component 1`] = `
+<div
+  className="movie-container"
+>
+  <div
+    className="info"
+  >
+    <p
+      style={
+        Object {
+          "fontSize": "20px",
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Test Movie Name
+    </p>
+    <p>
+       
+      1024
+    </p>
+    <CustomButton
+      className="button"
+      onChange={[Function]}
+    />
+  </div>
+</div>
+`;

@@ -4,9 +4,7 @@ import Movie from "../movie/movie.component";
 
 import "./movie-list.styles.scss";
 
-const MovieList = (props) => {
-  const { nominationList, movieList, onChange } = props;
-
+const MovieList = ({ nominationList, movieList, onChange }) => {
   const onClickChange = (newNomination) => {
     if (nominationList.length < 5) {
       const newNominationList = nominationList;
