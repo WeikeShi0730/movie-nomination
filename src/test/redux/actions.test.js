@@ -22,6 +22,7 @@ describe("test SET_MOVIELIST action", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ])
     );
@@ -34,6 +35,7 @@ describe("test SET_MOVIELIST action", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ],
     };
@@ -80,6 +82,7 @@ describe("test SET_NOMINATED action", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ])
     );
@@ -92,6 +95,7 @@ describe("test SET_NOMINATED action", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ],
     };

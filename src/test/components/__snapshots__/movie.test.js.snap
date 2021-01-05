@@ -21,6 +21,9 @@ exports[`should render Moive component 1`] = `
        
       1024
     </p>
+    <img
+      alt="movie-poster"
+    />
     <CustomButton
       className="button"
       onChange={[Function]}

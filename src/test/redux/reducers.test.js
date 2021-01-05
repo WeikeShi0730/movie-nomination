@@ -32,6 +32,7 @@ describe("test all the reducers", () => {
             imdbID: "movie imdbID",
             year: "movie Year",
             nominated: true,
+            poster: "http://poster",
           },
         ],
       })
@@ -43,6 +44,7 @@ describe("test all the reducers", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ],
     });
@@ -72,6 +74,7 @@ describe("test all the reducers", () => {
             imdbID: "movie imdbID",
             year: "movie Year",
             nominated: true,
+            poster: "http://poster",
           },
         ],
       })
@@ -83,6 +86,7 @@ describe("test all the reducers", () => {
           imdbID: "movie imdbID",
           year: "movie Year",
           nominated: true,
+          poster: "http://poster",
         },
       ],
     });
