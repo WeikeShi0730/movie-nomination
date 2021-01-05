@@ -6,7 +6,7 @@ import {
   SET_SEARCH_FIELD,
 } from "../../redux/actions/types";
 
-import nominatedReducer from "../../redux/reducers/nominated.reducer";
+import nominatedReducer from "../../redux/reducers/movieSelection.reducer";
 
 const initialState = {
   movieList: [],

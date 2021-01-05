@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import nominatedReducer from "./reducers/nominated.reducer";
+import movieSelectionReducer from "./reducers/movieSelection.reducer";
 
 const rootReducer = combineReducers({
-  nominated: nominatedReducer,
+  movieSelection: movieSelectionReducer,
 });
 
 export default rootReducer;

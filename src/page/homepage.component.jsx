@@ -7,7 +7,7 @@ import {
   setCount,
   setIsLoading,
   setSearchField,
-} from "../redux/actions/nominated.action";
+} from "../redux/actions/movieSelection.action";
 
 import { SearchBar } from "../components/search-bar/search-bar.component";
 import MovieList from "../components/movie-list/movie-list.component";
@@ -33,7 +33,6 @@ function Homepage({
 
   useEffect(() => {
     setIsLoading(true);
-
     const fetchedData = fetchData(
       `http://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
     );
@@ -48,8 +47,7 @@ function Homepage({
   }, [searchField, setIsLoading, setMovieList]);
 
   const onSearchChange = (event) => {
-    const newText = event.target.value;
-    if (newText.length) setSearchField(event.target.value);
+    setSearchField(event.target.value);
   };
 
   const onNominationList = (newNominationList) => {
@@ -74,7 +72,8 @@ function Homepage({
           <div className="column-left">
             {searchField !== undefined &&
               movieList !== undefined &&
-              movieList.movies !== undefined && (
+              movieList.movies !== undefined &&
+              movieList.movies.Search !== undefined && (
                 <MovieList
                   key="0"
                   className="column movie-list"
@@ -103,11 +102,11 @@ function Homepage({
 }
 
 const mapStateToProps = (state) => ({
-  movieList: state.nominated.movieList,
-  nominatedList: state.nominated.nominatedList,
-  count: state.nominated.count,
-  isLoading: state.nominated.isLoading,
-  searchField: state.nominated.searchField,
+  movieList: state.movieSelection.movieList,
+  nominatedList: state.movieSelection.nominatedList,
+  count: state.movieSelection.count,
+  isLoading: state.movieSelection.isLoading,
+  searchField: state.movieSelection.searchField,
 });
 
 export default connect(mapStateToProps, {

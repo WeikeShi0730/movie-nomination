@@ -1,4 +1,5 @@
-import {SET_MOVIELIST,
+import {
+  SET_MOVIELIST,
   SET_NOMINATED,
   SET_COUNT,
   SET_LOADING,
@@ -27,6 +28,7 @@ export const setCount = (count) => (dispatch) => {
 };
 
 export const setIsLoading = (isLoading) => (dispatch) => {
+  console.log(isLoading);
   dispatch({
     type: SET_LOADING,
     payload: isLoading,

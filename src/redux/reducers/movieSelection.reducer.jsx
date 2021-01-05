@@ -14,14 +14,14 @@ const initialState = {
   searchField: "",
 };
 
-export default function nominatedReducer(state = initialState, action) {
+export default function movieSelectionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_MOVIELIST:
       return {
         ...state,
         movieList: action.payload,
       };
-      
+
     case SET_NOMINATED:
       return {
         ...state,

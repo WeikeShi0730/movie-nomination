@@ -7,7 +7,7 @@ import {
   SET_LOADING,
   SET_SEARCH_FIELD,
 } from "../../redux/actions/types";
-import * as actions from "../../redux/actions/nominated.action";
+import * as actions from "../../redux/actions/movieSelection.action";
 
 const mockStore = configureMockStore([thunk]);
 
