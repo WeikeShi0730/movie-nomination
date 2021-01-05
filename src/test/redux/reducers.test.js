@@ -7,9 +7,11 @@ import {
 import nominatedReducer from "../../redux/reducers/nominated.reducer";
 
 const initialState = {
+  movieList: [],
   nominatedList: [],
   count: 5,
   isLoading: false,
+  searchField: "",
 };
 describe("test all the reducers", () => {
   it("should return the initial state", () => {

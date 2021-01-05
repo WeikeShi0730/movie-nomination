@@ -1,4 +1,4 @@
-const { fetchData } = require("../../page/homepage.component");
+const { fetchData } = require("../../utils/fetchData.utils");
 it("calls OMDb API to get movie data", () => {
   expect.assertions(2);
   return fetchData(

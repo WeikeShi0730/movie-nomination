@@ -1,28 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import {
+  setMovieList,
   setNominated,
   setCount,
   setIsLoading,
+  setSearchField,
 } from "../redux/actions/nominated.action";
 
 import { SearchBar } from "../components/search-bar/search-bar.component";
 import MovieList from "../components/movie-list/movie-list.component";
 import Nomination from "../components/nomination/nomination.component";
 
+import { fetchData } from "../utils/fetchData.utils";
+
 import "./homepage.styles.scss";
 
 function Homepage({
+  movieList,
   nominatedList,
   count,
   isLoading,
+  searchField,
+  setMovieList,
   setNominated,
   setCount,
   setIsLoading,
+  setSearchField,
 }) {
-  const [movieList, setMovieList] = useState();
-  const [searchField, setSearchField] = useState();
+  //const [movieList, setMovieList] = useState();
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,7 +45,7 @@ function Homepage({
       })
       .then((movies) => setMovieList({ movies }));
     setIsLoading(false);
-  }, [searchField, setIsLoading]);
+  }, [searchField, setIsLoading, setMovieList]);
 
   const onSearchChange = (event) => {
     const newText = event.target.value;
@@ -95,19 +102,18 @@ function Homepage({
   );
 }
 
-export const fetchData = async (url) => {
-  const response = await fetch(url);
-  return await response.json();
-};
-
 const mapStateToProps = (state) => ({
+  movieList: state.nominated.movieList,
   nominatedList: state.nominated.nominatedList,
   count: state.nominated.count,
   isLoading: state.nominated.isLoading,
+  searchField: state.nominated.searchField,
 });
 
 export default connect(mapStateToProps, {
+  setMovieList,
   setNominated,
   setCount,
   setIsLoading,
+  setSearchField,
 })(Homepage);
