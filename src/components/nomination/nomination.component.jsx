@@ -27,6 +27,7 @@ const Nomination = (props) => {
               <div key={movie.imdbID} className="nomination">
                 <h2>{movie.title}</h2>
                 <p>{movie.year}</p>
+                <img src={movie.poster} alt="movie-poster" />
                 <CustomButton
                   nominated={movie.nominated}
                   value={movie.title}

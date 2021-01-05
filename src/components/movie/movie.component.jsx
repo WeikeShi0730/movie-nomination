@@ -13,6 +13,7 @@ const Movie = ({ movie, onChange, nominated }) => {
       imdbID: movie.imdbID,
       year: movie.Year,
       nominated: true,
+      poster: movie.Poster,
     };
 
     onChange(newNomination);
@@ -27,6 +28,7 @@ const Movie = ({ movie, onChange, nominated }) => {
       <div className="info">
         <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
         <p> {movie.Year}</p>
+        <img src={movie.Poster} alt="movie-poster" />
         <CustomButton
           className="button"
           disable={nominatedState}

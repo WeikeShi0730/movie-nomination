@@ -41,6 +41,7 @@ function Homepage({
         }
       })
       .then((movies) => {
+        console.log(movies);
         setMovieList({ movies });
         setIsLoading(false);
       });
