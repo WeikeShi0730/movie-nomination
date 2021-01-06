@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import {
   setMovieList,
@@ -7,13 +8,13 @@ import {
   setCount,
   setIsLoading,
   setSearchField,
-} from "../redux/actions/movieSelection.action";
+} from "../../redux/actions/movieSelection.action";
 
-import { SearchBar } from "../components/search-bar/search-bar.component";
-import MovieList from "../components/movie-list/movie-list.component";
-import Nomination from "../components/nomination/nomination.component";
+import { SearchBar } from "../../components/search-bar/search-bar.component";
+import MovieList from "../../components/movie-list/movie-list.component";
+import Nomination from "../../components/nomination/nomination.component";
 
-import { fetchData } from "../utils/fetchData.utils";
+import { fetchData } from "../../utils/fetchData.utils";
 
 import "./homepage.styles.scss";
 
@@ -28,6 +29,7 @@ function Homepage({
   setCount,
   setIsLoading,
   setSearchField,
+  history,
 }) {
   useEffect(() => {
     setIsLoading(true);
@@ -41,7 +43,6 @@ function Homepage({
         }
       })
       .then((movies) => {
-        console.log(movies);
         setMovieList({ movies });
         setIsLoading(false);
       });
@@ -66,6 +67,15 @@ function Homepage({
         <div></div>
         <div></div>
       </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          history.push("/signin");
+        }}
+      >
+        Sign in
+      </button>
       <div className="homepage">
         <SearchBar onSearchChange={onSearchChange} />
         <h1>{count > 0 ? `${count} Movies left` : `You've picked 5 movies`}</h1>

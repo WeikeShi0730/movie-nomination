@@ -2,19 +2,16 @@ import React from "react";
 
 import "./custom-button.styles.scss";
 
-const CustomButton = (props) => {
-  const { nominated, onChange, disable } = props;
-
+const CustomButton = ({ children, onChange, disable, ...props }) => {
   return (
     <button
-      className="custom-button"
+      className="button"
       type="button"
       disabled={disable}
       onClick={onChange}
+      {...props}
     >
-      <div className={`${disable ? "disable" : ""}`}>
-        {disable ? "nominate" : nominated ? "Un-nominate" : "Nominate"}
-      </div>
+      <div className={`${disable ? "disable" : ""}`}>{children}</div>
     </button>
   );
 };

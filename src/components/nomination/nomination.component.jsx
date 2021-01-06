@@ -27,12 +27,13 @@ const Nomination = (props) => {
               <div key={movie.imdbID} className="nomination">
                 <h2>{movie.title}</h2>
                 <p>{movie.year}</p>
-                <img src={movie.poster} alt="movie-poster" />
+                <img src={movie.poster} alt="Poster Not Avaliable" />
                 <CustomButton
-                  nominated={movie.nominated}
                   value={movie.title}
                   onChange={(event) => onClickChange(event, movie)}
-                />
+                >
+                  Un-Nominate
+                </CustomButton>
               </div>
             );
           }

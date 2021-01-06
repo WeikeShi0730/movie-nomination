@@ -1,0 +1,17 @@
+.sign-in-sign-up {
+    width: 850px;
+    display: flex;
+    justify-content: space-between;
+    margin: 6vw auto;
+  
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+      width: unset;
+      align-items: center;
+      padding:20px;
+      > *:first-child {
+        margin-bottom: 50px;
+      }
+    }
+  }
+  
