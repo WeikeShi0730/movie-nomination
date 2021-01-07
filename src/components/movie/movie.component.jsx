@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import CustomButton from "../custom-button/custom-button.component";
+import { setIsLoading } from "../../redux/actions/movieSelection.action";
 
 import { addMovieToTotalList } from "../../firebase/firebase.utils";
 
 import "./movie.styles.scss";
 
-const Movie = ({ movie, onChange, nominated, currentUser }) => {
+const Movie = ({
+  movie,
+  onChange,
+  nominated,
+  currentUser,
+  setIsLoading,
+  isLoading,
+}) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
   const onClickChange = async (event) => {
@@ -20,7 +28,9 @@ const Movie = ({ movie, onChange, nominated, currentUser }) => {
         poster: movie.Poster,
         total: 1,
       };
+      setIsLoading(true);
       await addMovieToTotalList(newNomination);
+      setIsLoading(false);
       onChange(newNomination);
     } else {
       alert(
@@ -34,18 +44,26 @@ const Movie = ({ movie, onChange, nominated, currentUser }) => {
   }, [nominated]);
 
   return (
-    <div className="movie-container">
-      <div className="info">
-        <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
-        <p> {movie.Year}</p>
-        <img src={movie.Poster} alt="Poster Not Avaliable" />
-        <CustomButton
-          className="button"
-          disable={nominatedState}
-          onChange={(event) => onClickChange(event)}
-        >
-          Nominate
-        </CustomButton>
+    <div className={`${isLoading ? "isLoading" : "notLoading"}`}>
+      <div className="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div className="movie-container">
+        <div className="info">
+          <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
+          <p> {movie.Year}</p>
+          <img src={movie.Poster} alt="Poster Not Avaliable" />
+          <CustomButton
+            className="button"
+            disable={nominatedState}
+            onChange={(event) => onClickChange(event)}
+          >
+            Nominate
+          </CustomButton>
+        </div>
       </div>
     </div>
   );
@@ -53,5 +71,7 @@ const Movie = ({ movie, onChange, nominated, currentUser }) => {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
+
+  isLoading: state.movieSelection.isLoading,
 });
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps, { setIsLoading })(Movie);

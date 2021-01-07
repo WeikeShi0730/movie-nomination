@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { compose } from "redux";
 
 import { setCurrentUser } from "./redux/actions/user.action";
 import {
@@ -22,6 +23,7 @@ function App({
   setNominated,
   setCount,
   setSearchField,
+  history,
 }) {
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -41,18 +43,17 @@ function App({
         setSearchField("");
         setCurrentUser(user);
       }
+      history.push("/");
     });
   }, [setCurrentUser, setNominated, setCount, setSearchField]);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route exact path="/signin" component={SignInAndSignUpPage} />
-        </Switch>
-      </BrowserRouter>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/signin" component={SignInAndSignUpPage} />
+      </Switch>
     </div>
   );
 }
@@ -61,9 +62,12 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.setCurrentUser,
 });
 
-export default connect(mapStateToProps, {
-  setCurrentUser,
-  setNominated,
-  setCount,
-  setSearchField,
-})(App);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, {
+    setCurrentUser,
+    setNominated,
+    setCount,
+    setSearchField,
+  })
+)(App);
