@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
 import CustomButton from "../custom-button/custom-button.component";
 
+import { updataTotalList } from "../../firebase/firebase.utils";
+
 import "./movie.styles.scss";
 
-const Movie = ({ movie, onChange, nominated }) => {
+const Movie = ({ movie, onChange, nominated, currentUser }) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
   const onClickChange = (event) => {
-    const newNomination = {
-      title: movie.Title,
-      imdbID: movie.imdbID,
-      year: movie.Year,
-      nominated: true,
-      poster: movie.Poster,
-    };
-
-    onChange(newNomination);
+    if (currentUser) {
+      const newNomination = {
+        title: movie.Title,
+        imdbID: movie.imdbID,
+        year: movie.Year,
+        nominated: true,
+        poster: movie.Poster,
+        total: 1,
+      };
+      updataTotalList(newNomination, "add");
+      onChange(newNomination);
+    } else {
+      alert(
+        "You are now nominating offline.\nPlease sign in to nominate or your vote will not be counted!"
+      );
+    }
   };
 
   useEffect(() => {
@@ -41,4 +51,7 @@ const Movie = ({ movie, onChange, nominated }) => {
   );
 };
 
-export default Movie;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+export default connect(mapStateToProps)(Movie);

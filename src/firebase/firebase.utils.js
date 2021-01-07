@@ -13,26 +13,127 @@ const config = {
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-    if (!userAuth) return;
-  
-    const userRef = firestore.doc(`users/${userAuth.uid}`);
-    const snapShot = await userRef.get();
-    if (!snapShot.exists) {
-      const { displayName, email } = userAuth;
-      const createdAt = new Date();
-      try {
-        await userRef.set({
-          displayName,
-          email,
-          createdAt,
-          ...additionalData,
-        });
-      } catch (error) {
-        console.log("error creating user", error.message);
-      }
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userRefSnapShot = await userRef.get();
+  if (!userRefSnapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    const nomination = {
+      count: 5,
+      nominationList: [],
+    };
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        nomination,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
     }
-    return userRef;
-  };
+  }
+  return userRef;
+};
+
+export const addNominationMovie = async (movieList, user) => {
+  const userRef = firestore.doc(`users/${user.id}`);
+  try {
+    await userRef.update({
+      nomination: {
+        count: 5 - movieList.length,
+        nominationList: movieList,
+      },
+    });
+  } catch (error) {
+    console.log("error updating nomination list", error.message);
+  }
+
+  //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
+  //   try {
+  //     await nominationsRef.update({
+  //       nomination: {
+  //         nominationList: movieList,
+  //         total: movieList.length,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.log("error updating nomination list", error.message);
+  //   }
+};
+
+export const updataTotalList = async (movie, addOrDelete) => {
+  //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
+  //   var list;
+  //   nominationsRef.onSnapshot((snapShot) => {
+  //     list = snapShot.data().nomination.nominationList;
+  //     console.log(list);
+  //   });
+  //   if (addOrDelete === "add") {
+  //     console.log(list);
+  //     list.forEach(async (item) => {
+  //       if (item.imdbID === movie.imdbID) {
+  //         // const total = item.total + 1;
+  //         // const newList = null;
+  //         // try {
+  //         //   await nominationsRef.update({
+  //         //     nomination: {
+  //         //       nominationList: newList,
+  //         //     },
+  //         //   });
+  //         // } catch (error) {
+  //         //   console.log("error updating nomination list", error.message);
+  //         // }
+  //       } else {
+  //         const newList = list.push(movie);
+  //         try {
+  //           await nominationsRef.update({
+  //             nomination: {
+  //               nominationList: newList,
+  //             },
+  //           });
+  //         } catch (error) {
+  //           console.log("error updating nomination list", error.message);
+  //         }
+  //       }
+  //     });
+  //   } else {
+  //   }
+  //   //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
+  //   //   if (addOrDelete === "add") {
+  //   //     nominationsRef.onSnapshot((snapShot) => {
+  //   //       const list = snapShot.data().nomination.nominationList;
+  //   //       list.forEach(async (item) => {
+  //   //         if (item.imdbID === movie.imdbID) {
+  //   //           const total = item.total + 1;
+  //   //           //   try {
+  //   //           //     await nominationsRef.update({
+  //   //           //       nomination: {
+  //   //           //         nominationList: newList,
+  //   //           //       },
+  //   //           //     });
+  //   //           //   } catch (error) {
+  //   //           //     console.log("error updating nomination list", error.message);
+  //   //           //   }
+  //   //         } else {
+  //   //           const newList = list.push(movie);
+  //   //           try {
+  //   //             await nominationsRef.update({
+  //   //               nomination: {
+  //   //                 nominationList: newList,
+  //   //               },
+  //   //             });
+  //   //           } catch (error) {
+  //   //             console.log("error updating nomination list", error.message);
+  //   //           }
+  //   //         }
+  //   //       });
+  //   //     });
+  //   //   }
+};
 
 firebase.initializeApp(config);
 

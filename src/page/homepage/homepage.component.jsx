@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import {
   setMovieList,
@@ -15,6 +14,7 @@ import MovieList from "../../components/movie-list/movie-list.component";
 import Nomination from "../../components/nomination/nomination.component";
 
 import { fetchData } from "../../utils/fetchData.utils";
+import { addNominationMovie } from "../../firebase/firebase.utils";
 
 import "./homepage.styles.scss";
 
@@ -30,6 +30,7 @@ function Homepage({
   setIsLoading,
   setSearchField,
   history,
+  currentUser,
 }) {
   useEffect(() => {
     setIsLoading(true);
@@ -56,6 +57,7 @@ function Homepage({
     if (newNominationList.length <= 5) {
       setCount(5 - newNominationList.length);
       setNominated(newNominationList);
+      addNominationMovie(newNominationList, currentUser);
     }
   };
 
@@ -97,14 +99,16 @@ function Homepage({
               )}
           </div>
           <div className="column-right">
-            <Nomination
-              key="1"
-              className="nomination-list"
-              onChange={(newNominationList) =>
-                onNominationList(newNominationList)
-              }
-              nominationList={nominatedList}
-            />
+            {currentUser !== null && (
+              <Nomination
+                key="1"
+                className="nomination-list"
+                onChange={(newNominationList) =>
+                  onNominationList(newNominationList)
+                }
+                nominationList={nominatedList}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -118,6 +122,8 @@ const mapStateToProps = (state) => ({
   count: state.movieSelection.count,
   isLoading: state.movieSelection.isLoading,
   searchField: state.movieSelection.searchField,
+
+  currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps, {
