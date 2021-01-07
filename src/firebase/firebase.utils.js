@@ -51,88 +51,66 @@ export const addNominationMovie = async (movieList, user) => {
   } catch (error) {
     console.log("error updating nomination list", error.message);
   }
-
-  //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
-  //   try {
-  //     await nominationsRef.update({
-  //       nomination: {
-  //         nominationList: movieList,
-  //         total: movieList.length,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.log("error updating nomination list", error.message);
-  //   }
 };
 
-export const updataTotalList = async (movie, addOrDelete) => {
-  //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
-  //   var list;
-  //   nominationsRef.onSnapshot((snapShot) => {
-  //     list = snapShot.data().nomination.nominationList;
-  //     console.log(list);
-  //   });
-  //   if (addOrDelete === "add") {
-  //     console.log(list);
-  //     list.forEach(async (item) => {
-  //       if (item.imdbID === movie.imdbID) {
-  //         // const total = item.total + 1;
-  //         // const newList = null;
-  //         // try {
-  //         //   await nominationsRef.update({
-  //         //     nomination: {
-  //         //       nominationList: newList,
-  //         //     },
-  //         //   });
-  //         // } catch (error) {
-  //         //   console.log("error updating nomination list", error.message);
-  //         // }
-  //       } else {
-  //         const newList = list.push(movie);
-  //         try {
-  //           await nominationsRef.update({
-  //             nomination: {
-  //               nominationList: newList,
-  //             },
-  //           });
-  //         } catch (error) {
-  //           console.log("error updating nomination list", error.message);
-  //         }
-  //       }
-  //     });
-  //   } else {
-  //   }
-  //   //   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
-  //   //   if (addOrDelete === "add") {
-  //   //     nominationsRef.onSnapshot((snapShot) => {
-  //   //       const list = snapShot.data().nomination.nominationList;
-  //   //       list.forEach(async (item) => {
-  //   //         if (item.imdbID === movie.imdbID) {
-  //   //           const total = item.total + 1;
-  //   //           //   try {
-  //   //           //     await nominationsRef.update({
-  //   //           //       nomination: {
-  //   //           //         nominationList: newList,
-  //   //           //       },
-  //   //           //     });
-  //   //           //   } catch (error) {
-  //   //           //     console.log("error updating nomination list", error.message);
-  //   //           //   }
-  //   //         } else {
-  //   //           const newList = list.push(movie);
-  //   //           try {
-  //   //             await nominationsRef.update({
-  //   //               nomination: {
-  //   //                 nominationList: newList,
-  //   //               },
-  //   //             });
-  //   //           } catch (error) {
-  //   //             console.log("error updating nomination list", error.message);
-  //   //           }
-  //   //         }
-  //   //       });
-  //   //     });
-  //   //   }
+export const addMovieToTotalList = async (movie) => {
+  const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
+  const snapShot = await nominationsRef.get();
+  var list = snapShot.data().nomination.nominationList;
+  const total = snapShot.data().nomination.total;
+  var newList = null;
+  if (list !== null) {
+    const index = list.findIndex((item) => item.imdbID === movie.imdbID);
+    if (index !== -1) {
+      list[index].total++;
+    } else {
+      list.push(movie);
+    }
+  } else {
+    list = [];
+    list.push(movie);
+  }
+
+  try {
+    newList = [...list];
+    await nominationsRef.update({
+      nomination: {
+        nominationList: newList,
+        total: total + 1,
+      },
+    });
+  } catch (error) {
+    console.log("error updating nomination list", error.message);
+  }
+};
+
+export const removeMoiveFromTotalList = async (movie) => {
+  const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
+  const snapShot = await nominationsRef.get();
+  var list = await snapShot.data().nomination.nominationList;
+  const total = snapShot.data().nomination.total;
+  var newList = null;
+  const index = list.findIndex((item) => item.imdbID === movie.imdbID);
+  if (index !== -1) {
+    list[index].total--;
+    if (list[index].total === 0) {
+      list.splice(index, 1);
+    }
+  } else {
+    console.log("cannot find the movie");
+  }
+
+  try {
+    newList = [...list];
+    await nominationsRef.update({
+      nomination: {
+        nominationList: newList,
+        total: total - 1,
+      },
+    });
+  } catch (error) {
+    console.log("error updating nomination list", error.message);
+  }
 };
 
 firebase.initializeApp(config);

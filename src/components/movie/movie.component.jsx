@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 
 import CustomButton from "../custom-button/custom-button.component";
 
-import { updataTotalList } from "../../firebase/firebase.utils";
+import { addMovieToTotalList } from "../../firebase/firebase.utils";
 
 import "./movie.styles.scss";
 
 const Movie = ({ movie, onChange, nominated, currentUser }) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
-  const onClickChange = (event) => {
+  const onClickChange = async (event) => {
     if (currentUser) {
       const newNomination = {
         title: movie.Title,
@@ -20,7 +20,7 @@ const Movie = ({ movie, onChange, nominated, currentUser }) => {
         poster: movie.Poster,
         total: 1,
       };
-      updataTotalList(newNomination, "add");
+      await addMovieToTotalList(newNomination);
       onChange(newNomination);
     } else {
       alert(

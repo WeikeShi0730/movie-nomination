@@ -2,18 +2,18 @@ import React from "react";
 
 import CustomButton from "../custom-button/custom-button.component";
 
+import { removeMoiveFromTotalList } from "../../firebase/firebase.utils";
+
 import "./nomination.styles.scss";
 
-const Nomination = (props) => {
-  const { nominationList, onChange } = props;
-
-  const onClickChange = (event, movie) => {
+const Nomination = ({ nominationList, onChange }) => {
+  const onClickChange = async (event, movie) => {
     event.preventDefault();
 
     const newNominationList = nominationList.filter(
       (removeMovie) => movie.imdbID !== removeMovie.imdbID
     );
-
+    await removeMoiveFromTotalList(movie);
     onChange(newNominationList);
   };
 
