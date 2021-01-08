@@ -86,8 +86,8 @@ export const addMovieToTotalList = async (movie) => {
 export const removeMoiveFromTotalList = async (movie) => {
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
   const snapShot = await nominationsRef.get();
-  var list = snapShot.data().nomination.nominationList;
-  const total = snapShot.data().nomination.total;
+  var list = await snapShot.data().nomination.nominationList;
+  const total = await snapShot.data().nomination.total;
   const index = list.findIndex((item) => item.imdbID === movie.imdbID);
   if (index !== -1) {
     list[index].total--;
@@ -114,9 +114,13 @@ export const removeMoiveFromTotalList = async (movie) => {
 export const getNominationData = async () => {
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
   const snapShot = await nominationsRef.get();
-  const list = snapShot.data().nomination.nominationList;
-  const total = snapShot.data().nomination.total;
-  const sortedList = list.sort(list.total).slice(0, 6);
+  const list = await snapShot.data().nomination.nominationList;
+  const total = await snapShot.data().nomination.total;
+  const sortedList = list
+    .sort((a, b) => {
+      return b.total - a.total;
+    })
+    .slice(0, 6);
 
   return { total: total, list: sortedList };
 };

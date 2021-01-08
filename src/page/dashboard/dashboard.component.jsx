@@ -9,13 +9,16 @@ function Dashboard() {
   const [topPicks, setTopPicks] = useState({
     labels: [],
     votes: [],
+    total: 0,
   });
   var labels = [];
   var votes = [];
+  var total;
   useEffect(() => {
     const getData = async () => {
       const nominationData = await getNominationData();
       const nominationList = nominationData.list;
+      const total = nominationData.total;
       nominationList.forEach((movie) => {
         labels.push(movie.title);
         votes.push(movie.total);
@@ -23,6 +26,7 @@ function Dashboard() {
       setTopPicks({
         labels: labels,
         votes: votes,
+        total: total,
       });
     };
     getData();
@@ -87,8 +91,11 @@ function Dashboard() {
 
   return (
     <div>
-      <h1 className="title">NOMINATION DASHBOARD</h1>
-      <HorizontalBar data={data} width={100} height={30} options={options} />
+      <h1 className="title">NOMINATION DASHBOARD (TOP 6)</h1>
+      <div className="chart">
+        <HorizontalBar data={data} width={100} height={30} options={options} />
+      </div>
+      <h2>Total Votes: {topPicks.total}</h2>
     </div>
   );
 }
