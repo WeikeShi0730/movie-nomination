@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -13,24 +14,49 @@ const Header = ({ currentUser, history }) => (
       <Link className="option" to="/">
         HOME
       </Link>
+      <Link className="option" to="/instruction">
+        INSTRUCTION
+      </Link>
+      <Link className="option" to="/nomination">
+        NOMINATION
+      </Link>
+      <Link className="option" to="/dashboard">
+        RESULTS
+      </Link>
       {currentUser ? (
-        <Link
-          className="option"
-          onClick={() => {
-            auth.signOut();
-          }}
-          to="/"
-        >
-          SIGN OUT
-        </Link>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+          >
+            {currentUser.displayName}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <Link className="option" to="/profile">
+                PROFILE
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="option"
+                onClick={() => {
+                  auth.signOut();
+                }}
+                to="/"
+              >
+                SIGN OUT
+              </Link>
+            </li>
+          </ul>
+        </div>
       ) : (
         <Link className="option" to="/signin">
           SIGN IN
         </Link>
       )}
-      <Link className="option" to="/dashboard">
-        DASHBOARD
-      </Link>
     </div>
   </div>
 );
