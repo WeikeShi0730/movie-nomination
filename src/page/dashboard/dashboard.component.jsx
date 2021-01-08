@@ -13,13 +13,12 @@ function Dashboard() {
   });
   var labels = [];
   var votes = [];
-  var total;
   useEffect(() => {
     const getData = async () => {
       const nominationData = await getNominationData();
-      const nominationList = nominationData.list;
+      const nominatedList = nominationData.list;
       const total = nominationData.total;
-      nominationList.forEach((movie) => {
+      nominatedList.forEach((movie) => {
         labels.push(movie.title);
         votes.push(movie.total);
       });
@@ -30,6 +29,13 @@ function Dashboard() {
       });
     };
     getData();
+
+    return () =>
+      setTopPicks({
+        labels: [],
+        votes: [],
+        total: 0,
+      });
   }, []);
 
   const data = {

@@ -20,9 +20,10 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userRefSnapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+    const submitted = false;
     const nomination = {
       count: 5,
-      nominationList: [],
+      nominatedList: [],
     };
     try {
       await userRef.set({
@@ -30,6 +31,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         email,
         createdAt,
         nomination,
+        submitted,
         ...additionalData,
       });
     } catch (error) {
@@ -39,71 +41,55 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addNominationMovie = async (movieList, user) => {
+export const updateSubmitted = async (nomination, user) => {
+  const userRef = firestore.doc(`users/${user.id}`);
+  try {
+    await userRef.set({
+      ...user,
+      nomination,
+      submitted: true,
+    });
+  } catch (error) {
+    console.log("error creating user", error.message);
+  }
+};
+
+export const addUserNominationMovie = async (movieList, user) => {
   const userRef = firestore.doc(`users/${user.id}`);
   try {
     await userRef.update({
       nomination: {
         count: 5 - movieList.length,
-        nominationList: movieList,
+        nominatedList: movieList,
       },
     });
   } catch (error) {
     console.log("error updating nomination list", error.message);
   }
-};
 
-export const addMovieToTotalList = async (movie) => {
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
-  const snapShot = await nominationsRef.get();
-  var list = snapShot.data().nomination.nominationList;
-  const total = snapShot.data().nomination.total;
-  if (list !== null) {
-    const index = list.findIndex((item) => item.imdbID === movie.imdbID);
-    if (index !== -1) {
-      list[index].total++;
+  const nominationsSnapShot = await nominationsRef.get();
+  const total = nominationsSnapShot.data().nomination.total;
+  var oldList = nominationsSnapShot.data().nomination.nominatedList;
+  movieList.forEach(async (movie) => {
+    if (oldList !== null) {
+      const index = oldList.findIndex((item) => item.imdbID === movie.imdbID);
+      if (index !== -1) {
+        oldList[index].total++;
+      } else {
+        oldList.push(movie);
+      }
     } else {
-      list.push(movie);
+      oldList = [];
+      oldList.push(movie);
     }
-  } else {
-    list = [];
-    list.push(movie);
-  }
-
+  });
   try {
-    const newList = [...list];
+    const newList = [...oldList];
     await nominationsRef.update({
       nomination: {
-        nominationList: newList,
-        total: total + 1,
-      },
-    });
-  } catch (error) {
-    console.log("error updating nomination list", error.message);
-  }
-};
-
-export const removeMoiveFromTotalList = async (movie) => {
-  const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
-  const snapShot = await nominationsRef.get();
-  var list = await snapShot.data().nomination.nominationList;
-  const total = await snapShot.data().nomination.total;
-  const index = list.findIndex((item) => item.imdbID === movie.imdbID);
-  if (index !== -1) {
-    list[index].total--;
-    if (list[index].total === 0) {
-      list.splice(index, 1);
-    }
-  } else {
-    console.log("cannot find the movie");
-  }
-
-  try {
-    const newList = [...list];
-    await nominationsRef.update({
-      nomination: {
-        nominationList: newList,
-        total: total - 1,
+        nominatedList: newList,
+        total: total + movieList.length,
       },
     });
   } catch (error) {
@@ -114,7 +100,7 @@ export const removeMoiveFromTotalList = async (movie) => {
 export const getNominationData = async () => {
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
   const snapShot = await nominationsRef.get();
-  const list = await snapShot.data().nomination.nominationList;
+  const list = await snapShot.data().nomination.nominatedList;
   const total = await snapShot.data().nomination.total;
   const sortedList = list
     .sort((a, b) => {

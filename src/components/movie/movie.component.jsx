@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import CustomButton from "../custom-button/custom-button.component";
 import { setIsLoading } from "../../redux/actions/movieSelection.action";
 
-import { addMovieToTotalList } from "../../firebase/firebase.utils";
-
 import "./movie.styles.scss";
 
 const Movie = ({
@@ -28,9 +26,7 @@ const Movie = ({
         poster: movie.Poster,
         total: 1,
       };
-      setIsLoading(true);
-      await addMovieToTotalList(newNomination);
-      setIsLoading(false);
+
       onChange(newNomination);
     } else {
       alert(
@@ -41,29 +37,22 @@ const Movie = ({
 
   useEffect(() => {
     setNominatedState(nominated);
+    return () => setNominatedState(false);
   }, [nominated]);
 
   return (
-    <div className={`${isLoading ? "isLoading" : "notLoading"}`}>
-      <div className="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div className="movie-container">
-        <div className="info">
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
-          <p> {movie.Year}</p>
-          <img src={movie.Poster} alt="Poster Not Avaliable" />
-          <CustomButton
-            className="button"
-            disable={nominatedState}
-            onChange={(event) => onClickChange(event)}
-          >
-            Nominate
-          </CustomButton>
-        </div>
+    <div className="movie-container">
+      <div className="info">
+        <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
+        <p> {movie.Year}</p>
+        <img src={movie.Poster} alt="Poster Not Avaliable" />
+        <CustomButton
+          className="button"
+          disable={nominatedState}
+          onChange={(event) => onClickChange(event)}
+        >
+          Nominate
+        </CustomButton>
       </div>
     </div>
   );

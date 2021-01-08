@@ -39,7 +39,7 @@ function App({
             id: snapShot.id,
             ...snapShot.data(),
           });
-          setNominated(snapShot.data().nomination.nominationList);
+          setNominated(snapShot.data().nomination.nominatedList);
           setCount(snapShot.data().nomination.count);
         });
       } else {
@@ -50,6 +50,13 @@ function App({
       }
       history.push("/");
     });
+
+    return () => {
+      setNominated([]);
+      setCount(5);
+      setSearchField("");
+      setCurrentUser(null);
+    };
   }, [setCurrentUser, setNominated, setCount, setSearchField, history]);
 
   return (

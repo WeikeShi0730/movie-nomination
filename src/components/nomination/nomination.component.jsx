@@ -2,32 +2,37 @@ import React from "react";
 import { connect } from "react-redux";
 
 import CustomButton from "../custom-button/custom-button.component";
-import { setIsLoading } from "../../redux/actions/movieSelection.action";
-
-import { removeMoiveFromTotalList } from "../../firebase/firebase.utils";
 
 import "./nomination.styles.scss";
 
-const Nomination = ({ nominationList, onChange }) => {
-  const onClickChange = async (event, movie) => {
-    event.preventDefault();
+const Nomination = ({
+  nominatedList,
+  onChange,
+  onClickSubmit,
+  currentUser,
+}) => {
+  var newNominatedList;
 
-    const newNominationList = nominationList.filter(
+  const onClickChange = (event, movie) => {
+    event.preventDefault();
+    newNominatedList = nominatedList.filter(
       (removeMovie) => movie.imdbID !== removeMovie.imdbID
     );
-    onChange(newNominationList);
+    onChange(newNominatedList);
   };
 
   return (
     <div>
       <div className="nomination-list">
         <h2 className="title">Nomination List</h2>
-        {nominationList.map((movie) => {
+        {nominatedList.map((movie) => {
           if (movie.nominated) {
             return (
               <div key={movie.imdbID} className="nomination">
-                <h2>{movie.title}</h2>
-                <p>{movie.year}</p>
+                <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+                  {movie.title}
+                </p>
+                <p> {movie.year}</p>
                 <img src={movie.poster} alt="Poster Not Avaliable" />
                 <CustomButton
                   value={movie.title}
@@ -40,9 +45,22 @@ const Nomination = ({ nominationList, onChange }) => {
           }
           return null;
         })}
+        {nominatedList.length > 0 && (
+          <CustomButton
+            className="submit"
+            disable={currentUser.submitted}
+            onChange={onClickSubmit}
+          >
+            SUBMIT
+          </CustomButton>
+        )}
       </div>
     </div>
   );
 };
 
-export default Nomination;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Nomination);

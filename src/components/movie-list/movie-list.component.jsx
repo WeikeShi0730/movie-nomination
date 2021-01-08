@@ -4,10 +4,10 @@ import Movie from "../movie/movie.component";
 
 import "./movie-list.styles.scss";
 
-const MovieList = ({ nominationList, movieList, onChange }) => {
+const MovieList = ({ nominatedList, movieList, onChange }) => {
   const onClickChange = (newNomination) => {
-    if (nominationList.length < 5) {
-      const newNominationList = nominationList;
+    if (nominatedList.length < 5) {
+      const newNominationList = nominatedList;
       newNominationList.push(newNomination);
       onChange(newNominationList);
     }
@@ -15,8 +15,8 @@ const MovieList = ({ nominationList, movieList, onChange }) => {
 
   const checkList = (movie) => {
     var nomination;
-    for (nomination in nominationList) {
-      if (nominationList[nomination].imdbID === movie.imdbID) {
+    for (nomination in nominatedList) {
+      if (nominatedList[nomination].imdbID === movie.imdbID) {
         return true;
       }
     }

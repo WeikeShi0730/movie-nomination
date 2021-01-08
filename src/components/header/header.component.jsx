@@ -11,29 +11,37 @@ import "./header.styles.scss";
 const Header = ({ currentUser, history }) => (
   <div className="header">
     <div className="options">
-      <Link className="option" to="/">
-        HOME
-      </Link>
-      <Link className="option" to="/instruction">
-        INSTRUCTION
-      </Link>
-      <Link className="option" to="/nomination">
-        NOMINATION
-      </Link>
-      <Link className="option" to="/dashboard">
-        RESULTS
-      </Link>
+      <button className="btn btn-primary" type="button">
+        <Link className="option" to="/">
+          HOME
+        </Link>
+      </button>
+      <button className="btn btn-primary" type="button">
+        <Link className="option" to="/instruction">
+          INSTRUCTION
+        </Link>
+      </button>
+      <button className="btn btn-primary" type="button">
+        <Link className="option" to="/nomination">
+          NOMINATION
+        </Link>
+      </button>
+      <button className="btn btn-primary" type="button">
+        <Link className="option" to="/dashboard">
+          RESULTS
+        </Link>
+      </button>
       {currentUser ? (
-        <div class="dropdown">
+        <div className="dropdown">
           <button
-            class="btn btn-primary dropdown-toggle"
+            className="btn btn-primary dropdown-toggle"
             type="button"
             data-toggle="dropdown"
           >
             {currentUser.displayName}
-            <span class="caret"></span>
+            <span className="caret"></span>
           </button>
-          <ul class="dropdown-menu">
+          <ul className="dropdown-menu">
             <li>
               <Link className="option" to="/profile">
                 PROFILE
@@ -53,9 +61,11 @@ const Header = ({ currentUser, history }) => (
           </ul>
         </div>
       ) : (
-        <Link className="option" to="/signin">
-          SIGN IN
-        </Link>
+        <button className="btn btn-primary" type="button">
+          <Link className="option" to="/signin">
+            SIGN IN
+          </Link>
+        </button>
       )}
     </div>
   </div>

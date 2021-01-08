@@ -28,12 +28,6 @@ const SignUp = () => {
         password
       );
       await createUserProfileDocument(user, { displayName });
-      setCredentials({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
     } catch (e) {
       console.error(e);
     }

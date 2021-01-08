@@ -14,7 +14,10 @@ import MovieList from "../../components/movie-list/movie-list.component";
 import Nomination from "../../components/nomination/nomination.component";
 
 import { fetchData } from "../../utils/fetchData.utils";
-import { addNominationMovie } from "../../firebase/firebase.utils";
+import {
+  addUserNominationMovie,
+  updateSubmitted,
+} from "../../firebase/firebase.utils";
 
 import "./nomination-page.styles.scss";
 
@@ -29,7 +32,6 @@ function NominationPage({
   setCount,
   setIsLoading,
   setSearchField,
-  history,
   currentUser,
 }) {
   useEffect(() => {
@@ -47,6 +49,11 @@ function NominationPage({
         setMovieList({ movies });
         setIsLoading(false);
       });
+
+    return () => {
+      setIsLoading(false);
+      setMovieList([]);
+    };
   }, [searchField, setIsLoading, setMovieList]);
 
   const onSearchChange = (event) => {
@@ -57,7 +64,18 @@ function NominationPage({
     if (newNominationList.length <= 5) {
       setCount(5 - newNominationList.length);
       setNominated(newNominationList);
-      addNominationMovie(newNominationList, currentUser);
+    }
+  };
+
+  const onClickSubmit = async () => {
+    if (nominatedList.length <= 5) {
+      setIsLoading(true);
+      await addUserNominationMovie(nominatedList, currentUser);
+      await updateSubmitted(
+        { nominatedList: nominatedList, count: count },
+        currentUser
+      );
+      setIsLoading(false);
     }
   };
 
@@ -82,7 +100,7 @@ function NominationPage({
                   key="0"
                   className="column movie-list"
                   movieList={movieList.movies.Search}
-                  nominationList={nominatedList}
+                  nominatedList={nominatedList}
                   onChange={(newNominationList) =>
                     onNominationList(newNominationList)
                   }
@@ -97,7 +115,8 @@ function NominationPage({
                 onChange={(newNominationList) =>
                   onNominationList(newNominationList)
                 }
-                nominationList={nominatedList}
+                onClickSubmit={onClickSubmit}
+                nominatedList={nominatedList}
               />
             )}
           </div>
