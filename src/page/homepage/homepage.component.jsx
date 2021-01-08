@@ -69,15 +69,6 @@ function Homepage({
         <div></div>
         <div></div>
       </div>
-
-      <button
-        type="button"
-        onClick={() => {
-          history.push("/signin");
-        }}
-      >
-        Sign in
-      </button>
       <div className="homepage">
         <SearchBar onSearchChange={onSearchChange} />
         <h1>{count > 0 ? `${count} Movies left` : `You've picked 5 movies`}</h1>

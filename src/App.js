@@ -13,6 +13,8 @@ import {
 import Header from "./components/header/header.component";
 import Homepage from "./page/homepage/homepage.component";
 import SignInAndSignUpPage from "./page/sign-in-sign-up/sign-in-sign-up.component";
+import Dashboard from "./page/dashboard/dashboard.component";
+
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import "./App.css";
@@ -45,7 +47,7 @@ function App({
       }
       history.push("/");
     });
-  }, [setCurrentUser, setNominated, setCount, setSearchField]);
+  }, [setCurrentUser, setNominated, setCount, setSearchField, history]);
 
   return (
     <div className="App">
@@ -53,6 +55,7 @@ function App({
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route exact path="/signin" component={SignInAndSignUpPage} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Switch>
     </div>
   );

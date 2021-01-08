@@ -10,21 +10,27 @@ import "./header.styles.scss";
 const Header = ({ currentUser, history }) => (
   <div className="header">
     <div className="options">
+      <Link className="option" to="/">
+        HOME
+      </Link>
       {currentUser ? (
-        <div
+        <Link
           className="option"
           onClick={() => {
             auth.signOut();
-            history.push("/");
           }}
+          to="/"
         >
           SIGN OUT
-        </div>
+        </Link>
       ) : (
         <Link className="option" to="/signin">
           SIGN IN
         </Link>
       )}
+      <Link className="option" to="/dashboard">
+        DASHBOARD
+      </Link>
     </div>
   </div>
 );
