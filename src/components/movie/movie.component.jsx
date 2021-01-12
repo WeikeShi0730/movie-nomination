@@ -43,7 +43,7 @@ const Movie = ({
   return (
     <div className="movie-container">
       <div className="info">
-        <p style={{ fontSize: "20px", fontWeight: "bold" }}>{movie.Title}</p>
+        <p>{movie.Title}</p>
         <p> {movie.Year}</p>
         <img src={movie.Poster} alt="Poster Not Avaliable" />
         <CustomButton
