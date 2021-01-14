@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render Nomination component 1`] = `
+exports[`should render Header component 1`] = `
 <Context.Provider
   value={
     Object {
@@ -32,26 +32,6 @@ exports[`should render Nomination component 1`] = `
     }
   }
 >
-  <Memo(Connect(Nomination))
-    nominationList={
-      Array [
-        Object {
-          "Title": "Test Movie Name_0",
-          "Year": 1024,
-          "imdbID": "imdbID_0",
-        },
-        Object {
-          "Title": "Test Movie Name_1",
-          "Year": 1025,
-          "imdbID": "imdbID_1",
-        },
-        Object {
-          "Title": "Test Movie Name_2",
-          "Year": 1026,
-          "imdbID": "imdbID_2",
-        },
-      ]
-    }
-  />
+  <withRouter(Connect(Header)) />
 </Context.Provider>
 `;

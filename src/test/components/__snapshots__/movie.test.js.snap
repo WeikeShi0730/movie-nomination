@@ -1,33 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Moive component 1`] = `
-<div
-  className="movie-container"
+<Context.Provider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Subscription {
+        "handleChangeWrapper": [Function],
+        "listeners": Object {
+          "notify": [Function],
+        },
+        "onStateChange": [Function],
+        "parentSub": undefined,
+        "store": Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        },
+        "unsubscribe": null,
+      },
+    }
+  }
 >
-  <div
-    className="info"
-  >
-    <p
-      style={
-        Object {
-          "fontSize": "20px",
-          "fontWeight": "bold",
-        }
+  <Memo(Connect(Movie))
+    movie={
+      Object {
+        "Title": "Test Movie Name",
+        "Year": 1024,
       }
-    >
-      Test Movie Name
-    </p>
-    <p>
-       
-      1024
-    </p>
-    <img
-      alt="movie-poster"
-    />
-    <CustomButton
-      className="button"
-      onChange={[Function]}
-    />
-  </div>
-</div>
+    }
+  />
+</Context.Provider>
 `;

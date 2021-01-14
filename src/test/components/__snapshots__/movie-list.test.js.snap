@@ -9,7 +9,7 @@ exports[`should render MoiveList component 1`] = `
   >
     Result
   </h2>
-  <Movie
+  <Memo(Connect(Movie))
     movie={
       Object {
         "Title": "Test Movie Name_0",
@@ -20,7 +20,7 @@ exports[`should render MoiveList component 1`] = `
     nominated={false}
     onChange={[Function]}
   />
-  <Movie
+  <Memo(Connect(Movie))
     movie={
       Object {
         "Title": "Test Movie Name_1",
@@ -31,7 +31,7 @@ exports[`should render MoiveList component 1`] = `
     nominated={false}
     onChange={[Function]}
   />
-  <Movie
+  <Memo(Connect(Movie))
     movie={
       Object {
         "Title": "Test Movie Name_2",

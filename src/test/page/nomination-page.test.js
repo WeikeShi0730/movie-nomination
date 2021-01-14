@@ -1,3 +1,22 @@
+import React from "react";
+import { shallow } from "enzyme";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import NominationPage from "../../page/nomination-page/nomination-page.component.jsx";
+
+const mockStore = configureMockStore();
+const store = mockStore({});
+
+it("should render NominationPage component", () => {
+  expect(
+    shallow(
+      <Provider store={store}>
+        <NominationPage />
+      </Provider>
+    ).getElement()
+  ).toMatchSnapshot();
+});
+
 const { fetchData } = require("../../utils/fetchData.utils");
 it("calls OMDb API to get movie data", () => {
   expect.assertions(2);

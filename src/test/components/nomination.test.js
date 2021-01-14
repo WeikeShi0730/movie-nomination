@@ -1,6 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
 import Nomination from "../../components/nomination/nomination.component";
+
+const mockStore = configureMockStore();
+const store = mockStore({});
 
 it("should render Nomination component", () => {
   const mockNominationList = [
@@ -20,5 +25,11 @@ it("should render Nomination component", () => {
       imdbID: "imdbID_2",
     },
   ];
-  expect(shallow(<Nomination nominationList={mockNominationList} />).getElement()).toMatchSnapshot();
+  expect(
+    shallow(
+      <Provider store={store}>
+        <Nomination nominationList={mockNominationList} />
+      </Provider>
+    ).getElement()
+  ).toMatchSnapshot();
 });

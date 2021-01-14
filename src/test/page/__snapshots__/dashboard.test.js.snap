@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Dashboard component 1`] = `
+<div>
+  <h1
+    className="title"
+  >
+    NOMINATION DASHBOARD (TOP 6)
+  </h1>
+  <div
+    className="chart"
+  >
+    <HorizontalBar
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "backgroundColor": Array [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+                "rgba(255, 206, 86, 0.5)",
+                "rgba(75, 192, 192, 0.5)",
+                "rgba(153, 102, 255, 0.5)",
+                "rgba(255, 159, 64, 0.5)",
+              ],
+              "borderColor": Array [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              "borderWidth": 1,
+              "data": Array [],
+              "label": "# of Votes",
+            },
+          ],
+          "labels": Array [],
+        }
+      }
+      height={30}
+      options={
+        Object {
+          "legend": Object {
+            "labels": Object {
+              "fontColor": "White",
+              "fontSize": 25,
+            },
+          },
+          "scales": Object {
+            "xAxes": Array [
+              Object {
+                "ticks": Object {
+                  "beginAtZero": true,
+                  "fontColor": "White",
+                  "fontSize": 15,
+                  "stepSize": 1,
+                },
+              },
+            ],
+            "yAxes": Array [
+              Object {
+                "ticks": Object {
+                  "beginAtZero": true,
+                  "fontColor": "White",
+                  "fontSize": 15,
+                },
+              },
+            ],
+          },
+        }
+      }
+      width={100}
+    />
+  </div>
+  <h2>
+    Total Votes: 
+    0
+  </h2>
+</div>
+`;
