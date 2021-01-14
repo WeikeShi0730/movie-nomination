@@ -8,12 +8,17 @@ import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import "./sign-in.styles.scss";
 
 const SignIn = () => {
+  /*
+  Local state to keep user credentials
+   */
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
   });
 
   const { email, password } = userCredentials;
+
+  /**handleSubmit by calling auth.signInWithEmailAndPassword */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -28,6 +33,7 @@ const SignIn = () => {
     }
   };
 
+  /** Keep the value made in the form */
   const handleChange = (event) => {
     const { value, name } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
@@ -39,6 +45,7 @@ const SignIn = () => {
       <span>Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
+        {/**use <FormInput> for all the input fields */}
         <FormInput
           name="email"
           type="email"
@@ -56,6 +63,7 @@ const SignIn = () => {
           required
         />
         <div className="buttons">
+          {/** Mount 2 kinds of sign in method */}
           <CustomButton type="submit"> Sign in </CustomButton>
           <CustomButton onClick={signInWithGoogle}>Google SignIn</CustomButton>
         </div>

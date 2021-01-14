@@ -6,6 +6,7 @@ import { getNominationData } from "../../firebase/firebase.utils";
 import "./dashboard.styles.scss";
 
 function Dashboard() {
+  /** use local state to keep data of labels and votes */
   const [topPicks, setTopPicks] = useState({
     labels: [],
     votes: [],
@@ -13,6 +14,8 @@ function Dashboard() {
   });
   var labels = [];
   var votes = [];
+
+  /** useEffect, async get nomination list from firestore */
   useEffect(() => {
     const getData = async () => {
       const nominationData = await getNominationData();
@@ -30,12 +33,13 @@ function Dashboard() {
     };
     getData();
 
+    // clear setState
     return () =>
       setTopPicks({
         labels: [],
         votes: [],
         total: 0,
-      });
+      }); //eslint-disable-next-line
   }, []);
 
   const data = {

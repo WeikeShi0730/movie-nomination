@@ -13,6 +13,10 @@ const Nomination = ({
 }) => {
   var newNominatedList;
 
+  /*
+  click on un-nominated button on a movie, filter out other movie, 
+  and call parent onChange function with the new nomination list
+   */
   const onClickChange = (event, movie) => {
     event.preventDefault();
     newNominatedList = nominatedList.filter(
@@ -29,9 +33,7 @@ const Nomination = ({
           if (movie.nominated) {
             return (
               <div key={movie.imdbID} className="nomination">
-                <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-                  {movie.title}
-                </p>
+                <p>{movie.title}</p>
                 <p> {movie.year}</p>
                 <img src={movie.poster} alt="Poster Not Avaliable" />
                 <CustomButton
@@ -45,6 +47,9 @@ const Nomination = ({
           }
           return null;
         })}
+        {/*
+          conditionally mount Submit button when there is a nomination list
+         */}
         {nominatedList.length > 0 && (
           <CustomButton
             className="submit"

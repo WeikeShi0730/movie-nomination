@@ -8,6 +8,7 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 const SignUp = () => {
+  /** use local state to store current user credentials */
   const [userCredentials, setCredentials] = useState({
     displayName: "",
     email: "",
@@ -16,6 +17,7 @@ const SignUp = () => {
   });
 
   const { displayName, email, password, confirmPassword } = userCredentials;
+  /** use auth.createUserWithEmailAndPassword async function to register*/
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -33,6 +35,7 @@ const SignUp = () => {
     }
   };
 
+  /** Keep the value made in the form */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
@@ -43,6 +46,7 @@ const SignUp = () => {
       <h2 className="title">I do not have an account</h2>
       <span>Sign up with your email and password</span>
       <form className="sign-up-form" onSubmit={handleSubmit}>
+        {/**use <FormInput> for all the input fields */}
         <FormInput
           type="text"
           name="displayName"

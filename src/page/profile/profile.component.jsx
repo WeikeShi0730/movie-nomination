@@ -5,6 +5,7 @@ import photo from "../../assets/profile.jpeg";
 import "./profile.styles.scss";
 
 function Profile({ currentUser }) {
+  /** if user logged in, display info and nomination list */
   return (
     <div>
       {currentUser && (

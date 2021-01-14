@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+/** firebase config */
 const config = {
   apiKey: "AIzaSyCZr69KZRbXSWIAQVRECt-fjbS59yYxPDc",
   authDomain: "movie-nomination.firebaseapp.com",
@@ -12,9 +13,11 @@ const config = {
   measurementId: "G-L20L6VY64V",
 };
 
+/** create a document in firestore if a new user */
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
+  // get userRef and userSnapshot
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const userRefSnapShot = await userRef.get();
   if (!userRefSnapShot.exists) {
@@ -41,6 +44,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+/** if a user clicked on submit, change summit state of this user to true */
 export const updateSubmitted = async (nomination, user) => {
   const userRef = firestore.doc(`users/${user.id}`);
   try {
@@ -54,7 +58,9 @@ export const updateSubmitted = async (nomination, user) => {
   }
 };
 
+/** new nomination list is added to this user firestore and a total nomination list */
 export const addUserNominationMovie = async (movieList, user) => {
+  // update this user nomination list
   const userRef = firestore.doc(`users/${user.id}`);
   try {
     await userRef.update({
@@ -67,10 +73,13 @@ export const addUserNominationMovie = async (movieList, user) => {
     console.log("error updating nomination list", error.message);
   }
 
+  // update the total nomination list
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
   const nominationsSnapShot = await nominationsRef.get();
   const total = nominationsSnapShot.data().nomination.total;
   var oldList = nominationsSnapShot.data().nomination.nominatedList;
+  // check if there is already this movie in the list,
+  // if so, increase number of vote of this movie, if not add a new movie to the list in firestore
   movieList.forEach(async (movie) => {
     if (oldList !== null) {
       const index = oldList.findIndex((item) => item.imdbID === movie.imdbID);
@@ -96,7 +105,7 @@ export const addUserNominationMovie = async (movieList, user) => {
     console.log("error updating nomination list", error.message);
   }
 };
-
+/** get the current nomination list data, sort by decending order, return top 6 */
 export const getNominationData = async () => {
   const nominationsRef = firestore.doc("nominations/37RL9wPwbon9SWaqxaG6");
   const snapShot = await nominationsRef.get();
@@ -116,6 +125,7 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+/** config google sign in */
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);

@@ -2,11 +2,11 @@ import React from "react";
 
 import "./search-bar.styles.scss";
 
-export const SearchBar = (props) => (
+export const SearchBar = ({ onSearchChange }) => (
   <input
     className="search-bar"
     type="text"
     placeholder="search movies"
-    onChange={props.onSearchChange}
+    onChange={onSearchChange}
   />
 );

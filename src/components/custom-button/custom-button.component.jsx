@@ -11,6 +11,9 @@ const CustomButton = ({ children, onChange, disable, ...props }) => {
       onClick={onChange}
       {...props}
     >
+    {/*
+      redner disabled button on condition
+    */}
       <div className={`${disable ? "disable" : ""}`}>{children}</div>
     </button>
   );

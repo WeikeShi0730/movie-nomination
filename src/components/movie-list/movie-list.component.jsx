@@ -5,6 +5,11 @@ import Movie from "../movie/movie.component";
 import "./movie-list.styles.scss";
 
 const MovieList = ({ nominatedList, movieList, onChange }) => {
+  /*
+  if the nomination list is still less than 5, add the new movie 
+  from children <Movie> component to the nomination list
+  Call parent onChange funtion
+   */
   const onClickChange = (newNomination) => {
     if (nominatedList.length < 5) {
       const newNominationList = nominatedList;
@@ -13,6 +18,9 @@ const MovieList = ({ nominatedList, movieList, onChange }) => {
     }
   };
 
+  /*
+  check if the movie is nominated, and pass as a prop to children
+   */
   const checkList = (movie) => {
     var nomination;
     for (nomination in nominatedList) {
@@ -26,6 +34,9 @@ const MovieList = ({ nominatedList, movieList, onChange }) => {
   return (
     <div className="movie-list">
       <h2 className="title">Result</h2>
+      {/*
+        map all the movie in the movieList
+       */}
       {movieList.map((movie) => (
         <Movie
           key={movie.imdbID}
