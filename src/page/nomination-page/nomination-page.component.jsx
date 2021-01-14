@@ -65,6 +65,10 @@ function NominationPage({
       setCount(5 - newNominationList.length);
       setNominated(newNominationList);
     }
+
+    if (newNominationList.length === 5) {
+      diplayBanner();
+    }
   };
 
   const onClickSubmit = async () => {
@@ -79,6 +83,13 @@ function NominationPage({
     }
   };
 
+  function diplayBanner() {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  }
   return (
     <div className={`${isLoading ? "isLoading" : "notLoading"}`}>
       <div className="lds-ellipsis">
@@ -90,6 +101,7 @@ function NominationPage({
       <div className="nomination-page">
         <SearchBar onSearchChange={onSearchChange} />
         <h1>{count > 0 ? `${count} Movies left` : `You've picked 5 movies`}</h1>
+        <div id="snackbar">Congrats! You've picked 5 movies!</div>
         <div>
           <div className="column-left">
             {searchField !== undefined &&

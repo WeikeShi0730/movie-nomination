@@ -11,12 +11,10 @@ const Movie = ({
   onChange,
   nominated,
   currentUser,
-  setIsLoading,
-  isLoading,
 }) => {
   const [nominatedState, setNominatedState] = useState(nominated);
 
-  const onClickChange = async (event) => {
+  const onClickChange = async () => {
     if (currentUser) {
       const newNomination = {
         title: movie.Title,
@@ -60,7 +58,5 @@ const Movie = ({
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
-
-  isLoading: state.movieSelection.isLoading,
 });
 export default connect(mapStateToProps, { setIsLoading })(Movie);

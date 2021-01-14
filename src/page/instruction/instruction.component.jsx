@@ -39,7 +39,7 @@ function Instruction() {
         <h1>Profile: </h1>
         <br />
         <ul>
-          <li></li>
+          <li>You can check out account and nomoniations</li>
         </ul>
       </div>
     </div>

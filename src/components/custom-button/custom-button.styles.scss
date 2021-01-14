@@ -5,9 +5,10 @@
   letter-spacing: 0.5px;
   line-height: 30px;
   padding: 0 20px 0 20px;
+  margin-top: 10px;
   font-size: 12px;
   border-radius: 10px;
-  background-color: black;
+  background-color: #008060;
   color: white;
   text-transform: uppercase;
   font-family: "formula1-display-regular";
@@ -19,6 +20,7 @@
   @media screen and (max-width: 800px) {
     font-size: 10px;
     margin: auto;
+    margin-top: 10px;
   }
 
   .disable {
@@ -36,7 +38,7 @@
   margin-top: 10px;
   font-size: 12px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #008060;
   color: black;
   text-transform: uppercase;
   font-family: "formula1-display-regular";

@@ -1,0 +1,42 @@
+.profile {
+  font-size: large;
+  margin-top: 8em;
+  .column-left {
+    float: left;
+    width: 40%;
+    img {
+      width: 10vw;
+      border-radius: 50%;
+    }
+    @media only screen and (max-width: 800px) {
+      float: none;
+      display: block;
+      width: 100%;
+      font-size: medium;
+    }
+  }
+
+  .column-right {
+    float: right;
+    width: 60%;
+    .movie-info {
+      margin: 50px;
+      img {
+        width: 150px;
+      }
+    }
+    @media only screen and (max-width: 800px) {
+      float: none;
+      display: block;
+      width: 100%;
+      font-size: medium;
+    }
+  }
+  .contact {
+    width: 100%;
+    position: absolute;
+    z-index: 5;
+    text-align: center;
+    bottom: 0;
+  }
+}

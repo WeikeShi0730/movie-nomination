@@ -15,7 +15,6 @@ import NominationPage from "./page/nomination-page/nomination-page.component";
 import SignInAndSignUpPage from "./page/sign-in-sign-up/sign-in-sign-up.component";
 import Dashboard from "./page/dashboard/dashboard.component";
 import Instruction from "./page/instruction/instruction.component";
-import Homepage from "./page/homepage/homepage.component";
 import Profile from "./page/profile/profile.component";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
@@ -63,7 +62,7 @@ function App({
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/" component={Homepage} />
+        <Route exact path="/" component={NominationPage} />
         <Route exact path="/nomination" component={NominationPage} />
         <Route exact path="/signin" component={SignInAndSignUpPage} />
         <Route exact path="/dashboard" component={Dashboard} />
