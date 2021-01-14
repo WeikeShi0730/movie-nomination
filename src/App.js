@@ -38,8 +38,10 @@ function App({
             id: snapShot.id,
             ...snapShot.data(),
           });
-          setNominated(snapShot.data().nomination.nominatedList);
-          setCount(snapShot.data().nomination.count);
+          if (snapShot.data().nomination.nominatedList.length > 0) {
+            setNominated(snapShot.data().nomination.nominatedList);
+            setCount(snapShot.data().nomination.count);
+          }
         });
       } else {
         setNominated([]);
