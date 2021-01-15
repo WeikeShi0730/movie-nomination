@@ -38,7 +38,7 @@ function NominationPage({
   useEffect(() => {
     setIsLoading(true);
     const fetchedData = fetchData(
-      `http://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
+      `https://www.omdbapi.com/?i=tt3896198&apikey=e00c961&s=${searchField}`
     );
 
     /** check if Response is True, then setState */
