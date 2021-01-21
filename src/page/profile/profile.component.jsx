@@ -10,18 +10,20 @@ function Profile({ currentUser }) {
     <div>
       {currentUser && (
         <div className="profile">
-          <div className="column-left">
-            <img src={photo} alt="Logo" />
-            <h1>{currentUser.displayName}</h1>
-            <h3>{currentUser.email}</h3>
-          </div>
-          <div className="column-right">
-            {currentUser.nomination.nominatedList.map((movie) => (
-              <div className="movie-info" key={movie.imdbID}>
-                <div>{movie.title}</div>
-                <div>{movie.year}</div>
-              </div>
-            ))}
+          <div className="top">
+            <div className="column-left">
+              <img src={photo} alt="Logo" />
+              <h1>{currentUser.displayName}</h1>
+              <h3>{currentUser.email}</h3>
+            </div>
+            <div className="column-right">
+              {currentUser.nomination.nominatedList.map((movie) => (
+                <div className="movie-info" key={movie.imdbID}>
+                  <div>{movie.title}</div>
+                  <div>{movie.year}</div>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="contact">
             <hr />
