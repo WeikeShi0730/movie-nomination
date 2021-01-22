@@ -29,6 +29,18 @@ const Nomination = ({
     <div>
       <div className="nomination-list">
         <h2 className="title">Nomination List</h2>
+        {/*
+        conditionally mount Submit button when there is a nomination list
+       */}
+        {nominatedList.length > 0 && (
+          <CustomButton
+            className="submit"
+            disable={currentUser.submitted}
+            onChange={onClickSubmit}
+          >
+            SUBMIT
+          </CustomButton>
+        )}
         {nominatedList.map((movie) => {
           if (movie.nominated) {
             return (
@@ -47,18 +59,6 @@ const Nomination = ({
           }
           return null;
         })}
-        {/*
-          conditionally mount Submit button when there is a nomination list
-         */}
-        {nominatedList.length > 0 && (
-          <CustomButton
-            className="submit"
-            disable={currentUser.submitted}
-            onChange={onClickSubmit}
-          >
-            SUBMIT
-          </CustomButton>
-        )}
       </div>
     </div>
   );
